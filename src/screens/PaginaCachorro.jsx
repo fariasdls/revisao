@@ -1,34 +1,22 @@
-import React from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
-import Cachorro from '../components/Cachorro';
+import './App.css'
+import Home from './screens/Home'
+import PaginaCep from './screens/PaginaCep'
+import PaginaCachorro from './screens/PaginaCachorro'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-const PaginaCachorro = () => {
-    // Dados fictícios de exemplo de um cachorro
-    const CachorroData = {
-        name: 'Rex',
-        breed: 'Labrador',
-        imageUrl: 'https://www.example.com/your-dog-image.jpg',
-    };
 
-    return (
-        <ScrollView contentContainerStyle={styles.container}>
-            <Cachorro
-                name={cahorroData.nome}
-                breed={cachorroData.raca}
-                imageUrl={cachorroData.imageUrl}
-            />
-        </ScrollView>
-    );
-};
+function App() {
 
-const styles = StyleSheet.create({
-    container: {
-        flexGrow: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#ecf0f1',
-        paddingVertical: 20,
-    },
-});
+  return(
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />}/>
+        <Route path="/busca-cep" element={<PaginaCep/>}/>
+        <Route path="/foto-cachorro" element={<PaginaCachorro/>} />
+      </Routes>
+    </Router>
+  )
+}
 
-export default PaginaCachorro;
+export default App
+
