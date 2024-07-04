@@ -1,41 +1,25 @@
-import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
 
-const Cachorro = ({ nome, raca, imageUrl }) => {
-    return (
-        <View style={styles.container}>
-            <Image source={{ uri: imageUrl }} style={styles.image} />
-            <Text style={styles.text}>Nome: {nome}</Text>
-            <Text style={styles.text}>Raca: {raca}</Text>
-        </View>
-    );
+const Cachorro = () => {
+  const [cachorroImage, setCachorroImage] = useState('');
+
+  const fetCachorroImage = async () => {
+    try {
+      const response = await fetch('https://api.thedogapi.com/v1/images/search');
+      const data = await response.json();
+      setCachorroImage(data[0].url);
+    } catch (error) {
+      console.error('Erro ao buscar imagem do cachorro:', error);
+    }
+  };
+
+  return (
+    <div>
+      {cachorroImage && <img src={cachorroImage} alt="Cachorro" />}
+      <p></p>
+      <button onClick={fetchCachorroImage}>Buscar Imagem de Cachorro</button>
+    </div>
+  );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        margin: 10,
-        padding: 10,
-        backgroundColor: '#fff',
-        borderRadius: 10,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.8,
-        shadowRadius: 2,
-        elevation: 5,
-    },
-    image: {
-        width: 200,
-        height: 200,
-        borderRadius: 100,
-        marginBottom: 10,
-    },
-    text: {
-        fontSize: 18,
-        marginBottom: 5,
-    },
-});
 
 export default Cachorro;
